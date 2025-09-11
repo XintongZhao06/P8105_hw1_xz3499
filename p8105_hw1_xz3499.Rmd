@@ -1,0 +1,55 @@
+---
+title: "p8105_hw1_xz3499.Rmd"
+author: "Xintong Zhao"
+date: '`r Sys.Date()`'
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 1
+### 1. 加载所需库
+```{r}
+library(moderndive)
+library(ggplot2)
+library(dplyr)
+```
+### 2. 加载所需数据集
+```{r}
+data("early_january_weather")
+```
+### 3. 查看数据集基本信息
+```{r}
+# 快速查看数据
+summary(early_january_weather)
+
+# the variables in this dataset 
+variables <- names(early_january_weather)
+cat("数据集包含以下变量:", paste(variables, collapse = ", "), "\n")
+
+# the size of the dataset
+n_rows <- nrow(early_january_weather)
+n_cols <- ncol(early_january_weather)
+cat("数据集有", n_rows, "行和", n_cols, "列\n")
+
+# the mean temperature
+mean_temp_value <- mean(early_january_weather$temp, na.rm = TRUE)
+cat("平均温度为", round(mean_temp_value, 1), "°F")
+```
+### 4. 绘制散点图
+```{r}
+# 创建散点图
+scatter_plot <- ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
+  geom_point() +
+  labs(x = "Time", y = "Temperature (°F)", color = "Humidity") +
+  theme_minimal()
+
+# 显示图片
+print(scatter_plot)
+
+# 保存图片
+ggsave("temp_vs_time.png", plot = scatter_plot, width = 8, height = 6)
+```
+
