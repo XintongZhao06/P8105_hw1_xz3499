@@ -68,3 +68,56 @@ c. **Trend Over Time**: From January 7th to January 15th, the temperature genera
 
 d. **Consistent Daily Range**: The daily temperature difference is relatively stable during this period.
 
+## Problem 2
+
+### 1. Load required libraries
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+### 2. Create the dataframe
+```{r}
+set.seed(123)
+
+df <- tibble(
+  norm_sample = rnorm(10),
+  logical_vec = norm_sample > 0,
+  char_vec = letters[1:10],
+  factor_vec = factor(rep(c("Low", "Medium", "High"), length.out = 10))
+)
+
+print(df)
+```
+
+### 3. Take the mean of each variable
+```{r}
+# Use pull() to extract each column from the data frame df, calculate the average value of each vector, and store the result in a variable starting with mean_
+mean_norm <- mean(pull(df, norm_sample))
+mean_logical <- mean(pull(df, logical_vec))
+# Use the try() function to catch errors. 
+mean_char <- try(mean(pull(df, char_vec)), silent = TRUE)
+mean_factor <- try(mean(pull(df, factor_vec)), silent = TRUE)
+
+cat("Mean of norm_sample:", mean_norm, "\n")
+cat("Mean of logical_vec:", mean_logical, "\n")
+cat("Mean of char_vec:", mean_char, "\n")
+cat("Mean of factor_vec:", mean_factor, "\n")
+```
+
+### 4. Convert variables to numbers
+```{r, message=FALSE}
+num_logical <- as.numeric(pull(df, logical_vec))
+num_char <- as.numeric(pull(df, char_vec))
+num_factor <- as.numeric(pull(df, factor_vec))
+```
+
+What happens and why?
+1. Logical variables: TRUE is converted to 1, and FALSE is converted to 0. Because R internally represents logical values in binary.
+2. Character variables: Convert all characters to NA. Because characters such as letters cannot be parsed into numerical values.
+3. Factor variable: Factors are converted to the underlying integer codes. Because factors are internally stored as integers representing category information in R.
+
+This helps explain what happens when taking the mean of variables:
+1. Numerical variable: The mean is calculated normally.
+2. Logical variables: R will automatically convert TRUE/FALSE to 1/0 before calculation.
+3. Character variable: Characters cannot be parsed as numbers, so mean() cannot calculate and returns NA.
+4. Factor variable: The mean() function does not automatically convert factors to their underlying integer codes, resulting in an inability to compute the mean.
