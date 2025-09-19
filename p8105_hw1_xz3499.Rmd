@@ -32,7 +32,7 @@ summary(early_january_weather)
 ```{r, results='asis'}
 # the variables in this dataset 
 variables <- names(early_january_weather)
-cat("The dataset contains the following variables:", paste(variables, collapse = ", "), ".\n")
+cat("The dataset contains the following variables:", paste(variables, collapse = ", "), ". The important variables include: temp, dewp, and humid, which are core variables describing the atmospheric state with relatively uniform distributions; wind_dir and wind_speed, which are key indicators reflecting wind conditions; precip, which is zero for most of the time; pressure has a significant number of missing values, while visib exhibits a wide range of distribution..\n")
 
 # the size of the dataset
 n_rows <- nrow(early_january_weather)
