@@ -29,20 +29,11 @@ data("early_january_weather")
 summary(early_january_weather)
 ```
 ### 4. A short discription of the dataset
-```{r, results='asis'}
-# the variables in this dataset 
-variables <- names(early_january_weather)
-cat("The dataset contains the following variables:", paste(variables, collapse = ", "), ". The important variables include: temp, dewp, and humid, which are core variables describing the atmospheric state with relatively uniform distributions; wind_dir and wind_speed, which are key indicators reflecting wind conditions; precip, which is zero for most of the time; pressure has a significant number of missing values, while visib exhibits a wide range of distribution..\n")
+The dataset contains the following variables: `r paste(names(early_january_weather), collapse = ", ")`. The important variables include: temp, dewp, and humid, which are core variables describing the atmospheric state with relatively uniform distributions; wind_dir and wind_speed, which are key indicators reflecting wind conditions; precip, which is zero for most of the time; pressure has a significant number of missing values, while visib exhibits a wide range of distribution.
 
-# the size of the dataset
-n_rows <- nrow(early_january_weather)
-n_cols <- ncol(early_january_weather)
-cat("The dataset has", n_rows, "rows and", n_cols, "columns.\n")
+The dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns.
 
-# the mean temperature
-mean_temp_value <- mean(early_january_weather$temp, na.rm = TRUE)
-cat("The mean temperature is", round(mean_temp_value, 1), "°F.")
-```
+The mean temperature is `r round(mean(early_january_weather$temp, na.rm = TRUE), 1)`°F.
 
 ### 5. Create scatterplot
 ```{r}
